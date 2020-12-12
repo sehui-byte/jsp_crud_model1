@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>KOSMOMEMBER MAIN</title>
+
+<meta charset="EUC-KR">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0
+      maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+
+<script type="text/javascript">
+		function checkAction(f, actionName)
+		{
+			alert(" >>> : " + actionName);
+			
+			//입력 눌렀을 때 회원가입 페이지로 넘어가게 하기
+			if ('insert' == actionName)
+			{
+				f.action = "kmem.html";			
+			}
+			if ('update' == actionName)
+			{
+				f.action = "kmemUpdate.jsp";			
+			}
+			if ('delete' == actionName)
+			{
+				f.action = "kmemDelete.jsp";			
+			}
+			if ('select' == actionName)
+			{
+				f.action = "kmemSelect.jsp";			
+			}
+			if ('selectall' == actionName)
+			{
+				f.action = "kmemSelectAll.jsp";			
+			}
+			
+			f.submit();
+		}	
+	
+	</script>
+</head>
+
+<body>
+	
+	<form name="empForm" method="POST">
+		<table border="1" style="background-color: lightskyblue;">
+			<tr>
+				<td colspan="2" align="center"><font size="4"
+					style="color: dodgerblue;">KOSMOMEMBER</font> <!--  <img src="../img/be-su.gif" width="25" height="25" alt="image"> -->
+				</td>
+			</tr>
+			<tr>
+				<td width="100" align="center">회원번호</td>
+				<td width="300">&nbsp;<input type="text" name="knum" id="knum"><br>
+					<font size="2">* 수정/삭제/조회 시 회원번호 사용</font>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="button" value="입력"
+					onclick="checkAction(this.form, 'insert');"> <input
+					type="button" value="수정"
+					onclick="checkAction(this.form, 'update');"> <input
+					type="button" value="삭제"
+					onclick="checkAction(this.form, 'delete');">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="다시">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="button" value="조회"
+					onclick="checkAction(this.form, 'select');"> <input
+					type="button" value="전체조회"
+					onclick="checkAction(this.form, 'selectall');"></td>
+			</tr>
+		</table>
+
+	</form>
+</body>
+<html>

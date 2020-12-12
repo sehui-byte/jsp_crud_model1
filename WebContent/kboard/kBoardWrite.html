@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>게시판</title>
+<script type="text/javascript">
+
+	function boardWriteCheck(){
+		
+		if(!document.getElementById("ksubject").value){
+			alert( "[게시물 제목]을 입력하세요." );
+			document.getElementById("ksubject").focus(); 
+			return;
+		}		
+		if(!document.getElementById("kname").value){
+			alert( "[작성자명]을 적어주세요." ); 	
+			document.getElementById("kname").focus();  
+			return;
+		}					
+		if(!document.getElementById("kpw").value){
+			alert( "[비밀번호]를 적어주세요" ); 
+			document.getElementById("kpw").focus();  
+			return;
+		}		
+		if(!document.getElementById("kmemo").value){
+			alert( "[게시물 내용]을 적어주세요" ); 
+			document.getElementById("kmemo").focus();  
+			return;
+		}
+			
+		//바디에 있는 boardWrite의 form속성들을 설정해줌
+		document.boardWrite.action="/kboard/kboardInsert.jsp";
+		document.boardWrite.method="POST";
+		document.boardWrite.enctype="application/x-www-form-urlencoded";
+		document.boardWrite.submit();
+	}
+</script>
+<style>
+	#boardWrite{display: table; margin-left: auto; margin-right: auto;}
+</style>	
+</head>
+<body>
+<form name="boardWrite" id="boardWrite">
+<table border = "1">
+	<tr>
+		<td colspan="2" align="center">게시판 글쓰기</td>				
+	</tr>
+	<tr>
+		<td align="center">글번호</td>
+		<!-- readonly을 사용해서 kno를 사용할 수 없게 만든다.-->
+		<td><input type="text" name="kno" id="kno" size="20" readonly></td>
+	</tr>
+	<tr>
+		<td align="center">제목</td>
+		<td><input type="text" name="ksubject" id="ksubject" size="53"></td>
+	</tr>
+	<tr>
+		<td  align="center">이름</td>
+		<td><input type="text" name="kname" id="kname" size="53"></td>
+	</tr>
+	<tr>
+		<td  align="center">비밀번호</td>
+		<td><input type="password" name="kpw" id="kpw" size="20"></td>
+	</tr>
+	<tr>
+		<td  align="center">입력일</td>
+		<td><input type="text" name="kinsertdate" size="20" disabled></td>
+	</tr>
+	<tr>
+		<td  align="center">수정일</td>
+		<td><input type="text" name="kupdatedate" size="20" disabled></td>
+	</tr>
+	<tr>
+		<td  align="center">내용</td>
+		<td>
+		<textarea name="kmemo" id="kmemo" cols="50" rows="10"></textarea>
+	</td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center">	
+		<input type="hidden" name="ISUD_TYPE" value="I">			
+		<input type="button" value="작성" onclick="boardWriteCheck()">
+		<input type="reset" value="다시">
+	</td>				
+	</tr>
+</table>
+</form>
+</body>
+</html>

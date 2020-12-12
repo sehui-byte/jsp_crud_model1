@@ -1,0 +1,110 @@
+20201204 
+-------------------------------------
+작업 일시
+12월 04일 금요일 12시 30분 부터 
+12월 07일 월요일 18시 까지 
+
+JSP Model 1 Architecture 로 회원가입 ISUD 만들어 보기 
+한글 인코딩 포함 (EUC-KR)
+아이디 중복 체크 
+비밀번호 확인
+
+DataSource 
+url :  jdbc:oracle:thin:@localhost:1521:orclHBE00
+user : kosmo00
+pwd : orcl00	
+driver : oracle.jdbc.driver.OracleDriver
+
+----------------------------------------------------------------------
+회원항목 : KOSMOMEMBER
+회원번호 : 20바이트 : 채번로직 적용 : 문자1개 + 0001 : M0001 : PRIMARY KEY 
+이름 : 100바이트
+아이디 : 100바이트 
+비밀번호 : 300바이트 : NOT NULL : 암호화 
+핸드폰 : 16바이트 : NOT NULL : 
+성별 : 1바이트 : F , M 
+취미 : 200바이트 : 수정가능 데이터 
+지역 : 50바이트 : 수정가능 데이터 
+소개글 : 500 바이트 : 수정가능 데이터 
+삭제여부 : 1바이트  : NOT NULL
+등록일 : DATE : 
+수정일 : DATE : 
+
+
+CREATE TABLE KOSMEMBER(
+	
+	KNUM VARCHAR2(20) PRIMARY KEY 
+   ,KNAME VARCHAR2(100)
+   ,KID VARCHAR2(100)
+   ,KPW VARCHAR2(300) NOT NULL
+   ,KHP VARCHAR2(16) NOT NULL
+   ,KGENDER VARCHAR2(1)
+   ,KHOBBY VARCHAR2(200)
+   ,KLOCAL VARCHAR2(50)
+   ,KMSG VARCHAR2(500)
+   ,KDELETEYN VARCHAR2(1) NOT ULL
+   ,KINSERTDATE DATE
+   ,KUPDATEDATE DATE	
+
+);
+
+
+
+화면
+/testJsp/modelone/
+kmem.html
+kmemInsert.jsp
+kmemUnsert.jsp
+kmemDnsert.jsp
+kmemSelectAll.jsp
+kmemSelect.jsp
+kmemIdCheck.jsp
+
+패키지 
+a.b.c.kmem
+
+vo.KosmoMemberVO
+
+dao.KosmoMemberDAO
+ArrayList kmemSelectAll()
+ArrayList kmemSelect(KosmoMemberVO kmvo)
+boolean kmemInsert(KosmoMemberVO kmvo)
+boolean kmemUpdate(KosmoMemberVO kmvo)
+boolean kmemDelete(KosmoMemberVO kmvo)
+dao.KosmoMemberDAOImpl
+
+sql.KosmoMemberSQLMap
+String getKmemSelectAllQuery()
+String getKmemSelectQuery()
+String getKmemInsertQuery()
+String getKmemUpdateQuery()
+String getKmemDeleteQuery()
+
+a.b.c.common
+JspConnProp
+KosmonMemberChabun
+
+
+
+--------------------------------------------------------
+*내껀 KOS로 시작하게 테이블 만들고, 강사님껀 KOSMO로 하자.
+<게시판>
+
+게시판 :
+채번로직 : 년월일0001 : YYYYMMDD0001 
+페이징 처리 
+CREATE TABLE KOSBOARD(
+ 	KNO 		VARCHAR2(20) PRIMARY KEY
+   ,KSUBJECT 	VARCHAR2(100) NOT NULL -- 수정가능 (게시물 제목)
+   ,KNAME    	VARCHAR2(100) NOT NULL
+   ,KPW		 	VARCHAR2(20) -- 수정가능 (게시물 내용)
+   ,KMEMO    	VARCHAR2(2000)
+   ,KDELETEYN 	VARCHAR2(1)
+   ,KINSERTDATE DATE
+   ,KUPDATEDATE DATE
+); 
+
+
+
+
+

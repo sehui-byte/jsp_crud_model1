@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0
+      maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+<style type="text/css">
+div {
+	margin: 50px 0px 0px 100px;
+}
+
+.mem {
+	text-align: center;
+}
+</style>
+
+<script type="text/javascript">
+
+//공백 체크(유효성검사)
+function kmemConfirm(){
+	console.log("kmemConfirm 함수 진입 >>> : ");
+	
+	var kform = document.memberForm;
+	console.log("document.memberForm >>> : " + kform);
+	
+	// 이름 공백 체크 
+	if (kform.name.value == ""){
+		alert("이름을 입력하세요");
+		document.getElementById("name").focus();
+		return false;
+	}else{
+		document.getElementById("id").focus();
+	}
+
+	// 아이디 공백 체크 
+	if (kform.id.value == ""){
+		alert("아이디를 입력하세요");
+		document.getElementById("id").focus();
+		return false;
+	}else{
+		document.getElementById("pw").focus();
+	}
+
+	// 패스워드 공백 체크 
+	if (kform.pw.value == ""){
+		alert("패스워드를 입력하세요");
+		document.getElementById("pw").focus();
+		return false;
+	}else{
+		document.getElementById("hp").focus();
+	}
+	
+	// 핸드폰 공백 체크 
+	if (kform.hp.value == ""){
+		alert("핸드폰을 입력하세요");
+		document.getElementById("hp").focus();
+		return false;
+	}else{
+		document.getElementById("gender").focus();
+	}
+	
+	alert("유효성 검사 완료 ! insert start ! >>> : ");
+	kform.action="/testISUD/kmem/kmemInsert.jsp";
+	kform.submit();
+	
+}
+
+	//이후 삭제할 부분 
+	function memberFormSubmit() {
+		console.log("memberFormSubmit() 함수 진입 >>> : ");
+		var memberForm = window.document.memberForm;
+		var memberFormAction = document.memberForm.action;
+		var memberFormMethod = document.memberForm.method;
+		var memberFormEnctype = document.memberForm.enctype;
+		console.log("form Tag 이름 >>> : " + memberForm);
+		console.log("form Tag action value >>> : " + memberFormAction);
+		console.log("form Tag method value >>> : " + memberFormMethod);
+		console.log("form Tag enctype 디폴트 value >>> : " + memberFormEnctype);
+
+		// 이름
+		alert("이름 >>> : " + document.getElementById("name").value);
+		console.log("이름 >>> : " + document.getElementById("name").value);
+
+		// 아이디
+		alert("아이디 >>> : " + document.getElementById("id").value);
+		console.log("아이디 >>> : " + document.getElementById("id").value);
+
+		// 패스워드
+		alert("패스워드 >>> : " + document.getElementById("pw").value);
+		console.log("패스워드 >>> : " + document.getElementById("pw").value);
+
+		// 핸드폰
+		alert("핸드폰 >>> : " + document.getElementById("hp").value);
+		console.log("핸드폰 >>> : " + document.getElementById("hp").value);
+
+		// 성별
+		var gen = document.getElementsByName("gender");
+		var gender;
+		alert(gen.length);
+		console.log("gen.length >>> : " + gen.length);
+		for (var m = 0; m < gen.length; m++) {
+			if (gen[m].checked == true) {
+				gender = gen[m].value
+				break;
+			}
+		}
+		alert("성별 >>> : " + gender);
+		console.log("성별 >>> : " + gender);
+
+		// 취미 
+		var hobbyLen = document.memberForm.hobby.length;
+		alert("hobbyLen >>> : " + hobbyLen);
+		console.log("hobbyLen >>> : " + hobbyLen);
+		for (var h = 0; h < hobbyLen; h++) {
+			if (document.memberForm.hobby[h].checked == true) {
+				alert("취미 >>> : " + document.memberForm.hobby[h].value);
+				console.log("취미 >>> : " + document.memberForm.hobby[h].value);
+			}
+		}
+
+		// 지역
+		var sel = document.getElementById("local");
+		var localVal = sel.options[sel.selectedIndex].value;
+		alert("지역 >>> : " + localVal);
+		console.log("지역 >>> : " + localVal);
+
+		// 소개글
+		alert("소개글 >>> : " + document.getElementById("msg").value);
+		console.log("소개글 >>> : " + document.getElementById("msg").value);
+
+		alert("유효성 검사는 나중에 하기로 하고 >>> : ");
+		console.log("유효성 검사는 나중에 하기로 하고 >>> : ");
+		window.document.memberForm.action = "/testISUD/kmem/kmemInsert.jsp";
+		window.document.memberForm.submit();
+	}
+
+	// 아이디 체크 
+	function idCheck() {
+		console.log("idCheck 함수 진입");
+		alert(" idCheck 함수 진입");
+		var idVal = document.getElementById("id").value;
+		window.open("/testISUD/kmem/idCheck.jsp?id=" + idVal, "",
+				"left=500 top=400, width=300,height=300", false);
+		
+	}
+
+	// 패스워드 체크 
+	function pwCheck() {
+		alert("pwCheck 함수 진입");
+		console.log(" pwCheck 함수 진입");
+		var pw = document.getElementById("pw");
+		var pw_r = document.getElementById("pw_r");
+
+		if (pw.value == pw_r.value) {
+			alert("비밀번호가 같습니다.");
+			pw_r.value = "";
+			document.getElementById("hp").focus();
+
+			return true;
+		} else {
+			alert("비밀번호가 다릅니다.");
+			pw.value = "";
+			pw_r.value = "";
+			pw.focus();
+
+			return false;
+		}
+	}
+</script>
+
+<title>modelone : KosmoMember ISUD</title>
+</head>
+
+
+<body>
+	<div>
+		<form name="memberForm" action="#" method="POST">
+			<table border="1">
+				<tr>
+					<td colspan="2" align="center">회원가입 표</td>
+				</tr>
+				<!-- 이름 -->
+				<tr>
+					<td class="member">이름</td>
+					<td><input type="text" name="name" id="name" /></td>
+				</tr>
+				<!-- 아이디 -->
+				<tr>
+					<td class="member">아이디</td>
+					<td><input type="text" name="id" id="id"/> 
+					<input type="button" name="idbtn" id="idbtn" value="아이디중복확인"
+							onclick="idCheck()" /></td>
+				</tr>
+				<!-- 비밀번호 -->
+				<tr>
+					<td class="member">패스워드</td>
+					<td><input type="password" name="pw" id="pw" /><br /> 
+						<input type="password" id="pw_r" name="pw_r" /> 
+						<input type="button" value="비밀번호확인" onclick="pwCheck()" /><br /></td>
+				</tr>
+
+				<tr>
+					<td class="member">핸드폰번호</td>
+					<td><select name="hp1">
+							<option value='' selected>--선택--</option>
+							<option value="010">010</option>
+							<option value="010">011</option>
+							<option value="010">016</option>
+							<option value="010">017</option>
+							<option value="010">019</option>
+					</select> -
+					<input type="text" name="hp2" size="4" /> - 
+					<input type="text" name="hp3" id="hp" size="4" /></td>
+				</tr>
+
+				<tr>
+					<td class="member">성별</td>
+					<td><input type="radio" name="gender" id="gender" value="M"
+						checked />남자 <input type="radio" name="gender" id="gender"
+						value="F" />여자</td>
+				</tr>
+
+				<tr>
+					<td class="member">취미</td>
+					<td><input type="checkbox" name="hobby" value="book" />독서 <input
+						type="checkbox" name="hobby" value="sports" />운동 <input
+						type="checkbox" name="hobby" value="music" />음악감상 <input
+						type="checkbox" name="hobby" value="journey" />여행</td>
+				</tr>
+				<tr>
+					<td class="member">지역</td>
+					<td><select name="local" id="local">
+							<option value="seoul">서울</option>
+							<option value="gyenggido">경기도</option>
+							<option value="junju">전주</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td class="member">소개글</td>
+					<td><textarea name="msg" id="msg" rows="5" cols="50">내 소개글					
+				</textarea></td>
+				</tr>
+				<tr id="id9">
+					<td colspan="2"><input type="button" value="보내기"
+						onclick="kmemConfirm()" /> <input type="reset" value="취소" />
+					</td>
+				</tr>
+
+			</table>
+		</form>
+	</div>
+</body>
+</html>
