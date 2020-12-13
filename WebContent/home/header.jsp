@@ -20,10 +20,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/kmem/kmemMain.html">Home</a>
+          <a class="nav-link active" aria-current="page" href="/modelone/home/home.jsp">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/kboard/kboardList.jsp">게시판</a>
+          <a class="nav-link active" aria-current="page" href="/modelone/kmem/kmemMain.html">kmem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/modelone/kboard/kboardList.jsp">게시판</a>
         </li>
       </ul>
     </div>

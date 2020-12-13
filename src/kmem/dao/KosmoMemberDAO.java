@@ -11,6 +11,6 @@ public interface KosmoMemberDAO {
 	boolean memInesert(KosmoMemberVO _kmvo);
 	boolean memUpdate(KosmoMemberVO _kmvo);
 	boolean memDelete(KosmoMemberVO _kmvo);
-	boolean idCheck(KosmoMemberVO _kmvo); //¾ÆÀÌµğ Áßº¹Ã¼Å©¸¦ À§ÇØ Áßº¹¾ÆÀÌµğ Á¸Àç ¿©ºÎ °Ë»ç
-	
+	boolean idCheck(KosmoMemberVO _kmvo); //ì•„ì´ë”” ì¤‘ë³µì²´í¬
+	boolean loginCheck(KosmoMemberVO _kmvo);//ë¡œê·¸ì¸ì‹œ ì•„ì´ë””, ë¹„ë²ˆ ì²´í¬
 }

@@ -52,7 +52,7 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 			}
 			JspConnProp.connClose(conn, pstmt, rs);
 		}catch(SQLException s) {
-			System.out.println("µðºñ ¿¬µ¿¿¡ ¿¡·¯ : KosmoMemberDAOImpl >>> : " + s);
+			System.out.println("ë””ë¹„ì—°ë™ì˜¤ë¥˜ : KosmoMemberDAOImpl >>> : " + s);
 		}finally {
 			try {
 				JspConnProp.connClose(conn, pstmt, rs);
@@ -73,6 +73,7 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 			conn = JspConnProp.getConnection();
 			pstmt = conn.prepareStatement(KosmoMemberSqlMap.getKmemSelectQuery());
 			pstmt.setString(1, _kmvo.getKnum());
+
 			System.out.println("SELECT >>> : \n" + KosmoMemberSqlMap.getKmemSelectQuery());
 			rs = pstmt.executeQuery();
 
@@ -101,7 +102,7 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 			}
 
 		}catch(Exception e) {
-			System.out.println("µðºñ ¿¬µ¿¿¡ ¿¡·¯ : KosmoMemberDAOImpl >>> : " + e.getMessage());
+			System.out.println("ë””ë¹„ì—°ë™ì˜¤ë¥˜  KosmoMemberDAOImpl >>> : " + e.getMessage());
 		}finally {
 			try {
 				JspConnProp.connClose(conn, pstmt, rs);
@@ -122,11 +123,11 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 		try {
 			pstm = conn.prepareStatement(KosmoMemberSqlMap.getKmemInsertQuery());
 
-			//knumÀÇ °æ¿ì : Ã¤¹ø »ç¿ë.
+			//knum ì±„ë²ˆë¡œì§ ì‚¬ìš©
 			//knum, kname, kid, kpw, khp, 
 			//kgender, khobby, klocal, kmsg
-			pstm.clearParameters();//ÀÌÀü ÆÄ¶ó¹ÌÅÍ °ªµé Áö¿öÁØ´Ù
-			pstm.setString(1, Chaebun.getKnumChaebun());//Ã¤¹ø°ª ¹Þ¾Æ¿È
+			pstm.clearParameters();
+			pstm.setString(1, Chaebun.getKnumChaebun());//ì±„ë²ˆë¡œì§ ì‚¬ìš©
 			pstm.setString(2, _kmvo.getKname());
 			pstm.setString(3, _kmvo.getKid());
 			pstm.setString(4, _kmvo.getKpw());
@@ -139,7 +140,7 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 			nCnt = pstm.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("µðºñ ¿¬µ¿¿¡ ¿¡·¯ : KosmoMemberDAOImpl >>> : " + e.getMessage());
+			System.out.println("ë””ë¹„ì—°ë™ì˜¤ë¥˜ : KosmoMemberDAOImpl >>> : " + e.getMessage());
 		}finally {
 			JspConnProp.connClose(conn, pstm);
 		}
@@ -172,7 +173,7 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 			nCnt = pstm.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("µðºñ ¿¬µ¿¿¡ ¿¡·¯ : KosmoMemberDAOImpl >>> : " + e.getMessage());
+			System.out.println("ë””ë¹„ì—°ë™ì˜¤ë¥˜ : KosmoMemberDAOImpl >>> : " + e.getMessage());
 		}finally {
 			JspConnProp.connClose(conn, pstm);
 		}
@@ -198,7 +199,7 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 			nCnt = pstm.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("µðºñ ¿¬µ¿¿¡ ¿¡·¯ : KosmoMemberDAOImpl >>> : " + e.getMessage());
+			System.out.println(" ë””ë¹„ì—°ë™ì˜¤ë¥˜ : KosmoMemberDAOImpl >>> : " + e.getMessage());
 		}finally {
 			JspConnProp.connClose(conn, pstm);
 		}
@@ -213,7 +214,7 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		boolean isIdDuplicated = false;//Áßº¹¾ÆÀÌµð Á¸Àç ¿©ºÎ
+		boolean isIdDuplicated = false;//ì¤‘ë³µì•„ì´ë”” ì¡´ìž¬ ì—¬ë¶€
 
 		try {
 			conn = JspConnProp.getConnection();
@@ -222,7 +223,7 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 			System.out.println("idCheck >>> : \n" + KosmoMemberSqlMap.getKmemCheckIdQuery());
 			rs = pstmt.executeQuery();
 
-			//¾ÆÀÌµð°¡ Á¸ÀçÇÏ¸é
+			
 			while(rs.next()) {
 				System.out.println("rs.getString(1) >>" + rs.getString(1));
 				if(rs.getString(1) != null)
@@ -231,7 +232,7 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 			
 			JspConnProp.connClose(conn, pstmt, rs);
 		}catch(SQLException s) {
-			System.out.println("µðºñ ¿¬µ¿¿¡ ¿¡·¯ : KosmoMemberDAOImpl >>> : " + s);
+			System.out.println("ë””ë¹„ì—°ë™ì˜¤ë¥˜ : KosmoMemberDAOImpl >>> : " + s);
 		}finally {
 			try {
 				JspConnProp.connClose(conn, pstmt, rs);
@@ -239,5 +240,40 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 		}
 
 		return isIdDuplicated;
+	}
+	
+	@Override
+	public boolean loginCheck(KosmoMemberVO _kmvo) {
+		System.out.println("loginCheck");
+		boolean loginResult = false;//ë¡œê·¸ì¸ ê²°ê³¼ 
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String loginQuery = "SELECT KID, KPW FROM KOSMEMBER WHERE KDELETEYN = 'Y' AND KID = ? AND KPW = ?";
+		
+		try {
+			conn = JspConnProp.getConnection();
+			pstmt = conn.prepareStatement(loginQuery);
+			
+			pstmt.setString(1, _kmvo.getKid());
+			pstmt.setString(2, _kmvo.getKpw() );
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+				System.out.println("rs.getString(1) >>" + rs.getString(1));
+				if(rs.getString(1) != null)
+					loginResult = true;
+			}
+			
+			JspConnProp.connClose(conn, pstmt, rs);
+		}catch(SQLException s) {
+			System.out.println("ë””ë¹„ì—°ë™ì˜¤ë¥˜ : loginCheck >>> : " + s);
+		}finally {
+			try {
+				JspConnProp.connClose(conn, pstmt, rs);
+			}catch(Exception e) {}
+		}
+		
+		return loginResult;
 	}
 }

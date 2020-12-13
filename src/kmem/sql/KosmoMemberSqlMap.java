@@ -45,6 +45,8 @@ public class KosmoMemberSqlMap {
 		sb.append("  		KOSMEMBER  		\n");
 		sb.append("  WHERE	KDELETEYN = 'Y'	\n");
 		sb.append("  AND	KNUM = ?		\n");
+//		sb.append("  AND	KID = ?			\n");
+//		sb.append("  AND	KPW = ?			\n");
 		
 		return sb.toString();
 	}
@@ -87,7 +89,7 @@ public class KosmoMemberSqlMap {
 		return sb.toString();
 	}
 	
-	//¼öÁ¤°¡´É : Ãë¹Ì, Áö¿ª, ¼Ò°³±Û 
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½Ò°ï¿½ï¿½ï¿½ 
 	// + updatedate
 	public static String getKmemUpdateQuery() {
 		
@@ -112,7 +114,7 @@ public class KosmoMemberSqlMap {
 		return sb.toString();
 	}
 	
-	//¾ÆÀÌµð Ã£´Â select¹® (¾ÆÀÌµðÁßº¹Ã¼Å©)
+	//ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½ selectï¿½ï¿½ (ï¿½ï¿½ï¿½Ìµï¿½ï¿½ßºï¿½Ã¼Å©)
 	public static String getKmemCheckIdQuery() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(" SELECT * 		\n");
