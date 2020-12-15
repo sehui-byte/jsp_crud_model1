@@ -1,2 +1,4 @@
 eclipse.preferences.version=1
 encoding//WebContent/20201204_model1.txt=EUC-KR
+encoding//src/mail/MailAuth.java=EUC-KR
+encoding//src/mail/MailSend.java=EUC-KR

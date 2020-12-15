@@ -223,13 +223,13 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 			System.out.println("idCheck >>> : \n" + KosmoMemberSqlMap.getKmemCheckIdQuery());
 			rs = pstmt.executeQuery();
 
-			
+
 			while(rs.next()) {
 				System.out.println("rs.getString(1) >>" + rs.getString(1));
 				if(rs.getString(1) != null)
 					isIdDuplicated = true;
 			}
-			
+
 			JspConnProp.connClose(conn, pstmt, rs);
 		}catch(SQLException s) {
 			System.out.println("디비연동오류 : KosmoMemberDAOImpl >>> : " + s);
@@ -241,7 +241,45 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 
 		return isIdDuplicated;
 	}
-	
+
+	//기존 비밀번호 조회
+	@Override
+	public ArrayList<KosmoMemberVO> pwSelect(KosmoMemberVO _kmvo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<KosmoMemberVO> aList = null;
+		String sqlQuery = "SELECT KPW FROM KOSMEMBER WHERE KID = ?";
+
+		try {
+			conn = JspConnProp.getConnection();
+			pstmt = conn.prepareStatement(sqlQuery);
+			pstmt.setString(1, _kmvo.getKid());
+			rs = pstmt.executeQuery();
+
+			if(rs != null) {
+				aList = new ArrayList<KosmoMemberVO>();
+				while(rs.next()) {
+					KosmoMemberVO kmvo = new KosmoMemberVO();
+					kmvo.setKpw(rs.getString(1));
+					aList.add(kmvo);
+				}	
+			}
+
+
+			JspConnProp.connClose(conn, pstmt, rs);
+		}catch(SQLException s) {
+			System.out.println("디비연동오류 : KosmoMemberDAOImpl >>> : " + s);
+		}finally {
+			try {
+				JspConnProp.connClose(conn, pstmt, rs);
+			}catch(Exception e) {}
+		}
+
+		return aList;
+	}
+
+	//로그인 유효성 검사(아이디,비번 맞는지)
 	@Override
 	public boolean loginCheck(KosmoMemberVO _kmvo) {
 		System.out.println("loginCheck");
@@ -249,12 +287,11 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String loginQuery = "SELECT KID, KPW FROM KOSMEMBER WHERE KDELETEYN = 'Y' AND KID = ? AND KPW = ?";
-		
+
 		try {
 			conn = JspConnProp.getConnection();
-			pstmt = conn.prepareStatement(loginQuery);
-			
+			pstmt = conn.prepareStatement(KosmoMemberSqlMap.getLoginQuery());
+
 			pstmt.setString(1, _kmvo.getKid());
 			pstmt.setString(2, _kmvo.getKpw() );
 			rs = pstmt.executeQuery();
@@ -264,7 +301,7 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 				if(rs.getString(1) != null)
 					loginResult = true;
 			}
-			
+
 			JspConnProp.connClose(conn, pstmt, rs);
 		}catch(SQLException s) {
 			System.out.println("디비연동오류 : loginCheck >>> : " + s);
@@ -273,7 +310,36 @@ public class KosmoMemberDAOImpl implements KosmoMemberDAO {
 				JspConnProp.connClose(conn, pstmt, rs);
 			}catch(Exception e) {}
 		}
-		
+
 		return loginResult;
+	}
+
+	//비밀번호 수정
+	public boolean pwUpdate(KosmoMemberVO _kmvo) {
+		boolean pwUpdateResult = false;//비밀번호 업데이트 결과
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int cnt = 0;
+		String tmpPw = mail.TempPw.makeTmpPw();
+		
+		conn = JspConnProp.getConnection();
+		
+		try {
+			pstmt = conn.prepareStatement(KosmoMemberSqlMap.getUpdatePwQuery());
+			pstmt.setString(1, tmpPw); //임시 비번으로 업데이트
+			System.out.println("발급된 임시 비밀번호 >> " + tmpPw);
+			pstmt.setString(2, _kmvo.getKid());
+			pstmt.setString(3, _kmvo.getKpw()); //기존 비번
+			cnt = pstmt.executeUpdate();
+			
+			if(cnt > 0)
+				pwUpdateResult = true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return pwUpdateResult;
 	}
 }

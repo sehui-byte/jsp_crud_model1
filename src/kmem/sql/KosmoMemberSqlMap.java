@@ -1,7 +1,7 @@
 package kmem.sql;
 
 public class KosmoMemberSqlMap {
-	
+
 	public static String getKmemSelectAllQuery() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("  SELECT					\n");
@@ -21,12 +21,12 @@ public class KosmoMemberSqlMap {
 		sb.append("  		KOSMEMBER  		\n");
 		sb.append("  WHERE	KDELETEYN = 'Y'	\n");
 		sb.append("  ORDER BY 1	   			\n");
-		
+
 		return sb.toString();
 	}
-	
+
 	public static String getKmemSelectQuery() {
-		
+
 		StringBuffer sb = new StringBuffer();
 		sb.append("  SELECT					\n");
 		sb.append(" 	   KNUM  			\n");
@@ -45,14 +45,14 @@ public class KosmoMemberSqlMap {
 		sb.append("  		KOSMEMBER  		\n");
 		sb.append("  WHERE	KDELETEYN = 'Y'	\n");
 		sb.append("  AND	KNUM = ?		\n");
-//		sb.append("  AND	KID = ?			\n");
-//		sb.append("  AND	KPW = ?			\n");
-		
+		//		sb.append("  AND	KID = ?			\n");
+		//		sb.append("  AND	KPW = ?			\n");
+
 		return sb.toString();
 	}
-	
+
 	public static String getKmemInsertQuery() {
-		
+
 		StringBuffer sb = new StringBuffer();
 		sb.append(" INSERT INTO  		\n");
 		sb.append(" 	KOSMEMBER  		\n");
@@ -85,42 +85,59 @@ public class KosmoMemberSqlMap {
 		sb.append(" 	  ,SYSDATE  	\n");
 		sb.append(" 	  ,SYSDATE  	\n");
 		sb.append(" 	)  				\n");		
-		
+
 		return sb.toString();
 	}
-	
-	//�������� : ���, ����, �Ұ��� 
-	// + updatedate
+
+
 	public static String getKmemUpdateQuery() {
-		
+
 		StringBuffer sb = new StringBuffer();
 		sb.append(" UPDATE 	KOSMEMBER 				\n");
 		sb.append("SET KMSG = ? , KHOBBY = ?, KLOCAL = ? \n");
 		sb.append("		,KUPDATEDATE = SYSDATE 			\n");
 		sb.append("	WHERE KNUM = ? 						\n");
 		sb.append("	AND KDELETEYN = 'Y' 					\n");
-		
+
 		return sb.toString();
 	}
-	
+
 	public static String getKmemDeleteQuery() {
-		
+
 		StringBuffer sb = new StringBuffer();
 		sb.append(" UPDATE 	KOSMEMBER SET 	 \n");
 		sb.append(" KDELETEYN = 'N' 			 \n");
 		sb.append(" ,KUPDATEDATE = SYSDATE 	 \n");
 		sb.append("	WHERE KNUM = ?			 \n");
-		
+
 		return sb.toString();
 	}
-	
-	//���̵� ã�� select�� (���̵��ߺ�üũ)
+
+	//아이디 중복체크 위한 쿼리
 	public static String getKmemCheckIdQuery() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(" SELECT * 		\n");
 		sb.append("	FROM KOSMEMBER 	\n");
 		sb.append(" WHERE KID = ? 	\n");
-		
+
 		return sb.toString();
 	}
+
+	//비밀번호 수정 쿼리
+	public static String getUpdatePwQuery() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(" UPDATE 	KOSMEMBER 					\n");
+		sb.append("	SET KPW = ? 						\n");
+		sb.append("		,KUPDATEDATE = SYSDATE 			\n");
+		sb.append("	WHERE KID = ? 	AND KPW = ?			\n");
+		sb.append("	AND KDELETEYN = 'Y' 				\n");
+
+		return sb.toString();
+	}
+	
+	public static String getLoginQuery() {
+		String sql = "SELECT KID, KPW FROM KOSMEMBER WHERE KDELETEYN = 'Y' AND KID = ? AND KPW = ?";
+		return sql;
+	}
+
 }

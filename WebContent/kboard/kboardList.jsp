@@ -34,6 +34,8 @@
 			/* 테이블 길이 고정 */
 			table-layout:fixed;
 		}
+		
+		tr:hover {background-color: #f5f5f5;}
 	</style>
 </head>
 
@@ -100,8 +102,8 @@
 					for (int i = 0; i < listCount; i++) {
 						KosBoardVO kbvo = aList.get(i);
 				%>
-				<tr>
-					<td scope="row"><%=kbvo.getKno()%></td>
+				<tr onclick ="location.href='kboardView.jsp?kno=<%=kbvo.getKno()%>'">
+					<td scope="row" name="kno"><%=kbvo.getKno()%></td>
 					<td scope="row"><%=kbvo.getKsubject()%></td>
 					<td scope="row"><%=kbvo.getKmemo()%></td>
 					<td scope="row"><%=kbvo.getKinsertdate()%></td>

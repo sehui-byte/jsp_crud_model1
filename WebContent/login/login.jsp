@@ -18,6 +18,12 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.btns{
+	margin-top: 1%;
+	text-align: center;
+}
+
 </style>
 <script>
 	function checkAction(actionName) {
@@ -37,17 +43,19 @@
 			document.loginForm.method="POST";
 			document.loginForm.enctype = "application/x-www-form-urlencoded";
 			
-			
 		}
 		
 		document.loginForm.submit();
-		
+	}
+	
+	function sendMail(){
+		window.open("../login/findPw.jsp", "", "width=500, height=500, resizable=no, scrollbars=no, status=no");
 	}
 </script>
 </head>
 <body>
 
-<%
+	<%
 if(session.getAttribute("id") == null){
 %>
 
@@ -56,13 +64,13 @@ if(session.getAttribute("id") == null){
 		<div class="row mb-3">
 			<label for="inputEmail3" class="col-sm-5 col-form-label">Id</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" name = "id" id="id">
+				<input type="text" class="form-control" name="id" id="id">
 			</div>
 		</div>
 		<div class="row mb-3">
 			<label for="inputPassword3" class="col-sm-5 col-form-label">Password</label>
 			<div class="col-sm-10">
-				<input type="password" class="form-control" name = "pw"  id="pw">
+				<input type="password" class="form-control" name="pw" id="pw">
 			</div>
 		</div>
 		<div class="row mb-3">
@@ -75,14 +83,20 @@ if(session.getAttribute("id") == null){
 		</div>
 		<button type="submit" class="btn btn-primary"
 			onclick="checkAction('login');">로그인</button>
-		<!-- 나중에 로그아웃버튼 추가할 것 -->
 	</form>
-<% }
+	<div class = "btns">
+		<button type="submit" class="btn btn-dark" id="findPwBtn" onclick="sendMail()">비밀번호
+			찾기</button>
+		<button type="submit" class="btn btn-dark" id="signInBtn" onclick="location.href='../kmem/kmem.html'">
+			회원가입</button>
+	</div>
+
+	<% }
 else { %>
-<form name="loginForm" id="loginForm">
-	<button onclick="checkAction('logout');">로그아웃</button>
+	<form name="loginForm" id="loginForm">
+		<button onclick="checkAction('logout');">로그아웃</button>
 	</form>
-<% } %>
+	<% } %>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"

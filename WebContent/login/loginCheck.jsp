@@ -40,7 +40,7 @@
 	else{//계정 존재하지 않으면
 		System.out.println("로그인 실패");
 		msg = "아이디 또는 비밀번호가 일치하지 않습니다.";
-		pageUrl = "/modelone/login/login.jsp";
+		pageUrl = "/modelone/home/home.jsp";
 	}
 
 %>
